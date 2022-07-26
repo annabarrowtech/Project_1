@@ -44,13 +44,11 @@ function historyButtons() {
     search = $(this).text();
     getApi();
   })
-
 }
 
 fetchButton.addEventListener('click', buttons);
 
-function getApi(event) {
-  // event.preventDefault();
+function getApi() {
 
   // create variables for constructing requestUrl
   var requestUrl = `http://openlibrary.org/search.json?${dropdown.val()}=${searchTerm.val()}`;
@@ -60,31 +58,15 @@ function getApi(event) {
   console.log(searchTerm);
   console.log(dropdown);
 
-//   `https://api.nytimes.com/svc/books/v3/reviews.json?${selection}=${searchTerm}&api-key=${apiKeyNYT}`
 
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
+      console.log(data);
       return data
     });
-}
-
-
-
-// Set search history to Local Storage and construch buttons to be used again
-function getHistory() {
-  searchHistory.empty();
-
-  for (let i=0; i<historyArray; i++) {
-    var rowEl = $('<row>');
-    var btnEl = $('<button>').text(`${historyArray[i]}`)
-  }
 
 }
-
-// Construct Cards for search results
-
 
