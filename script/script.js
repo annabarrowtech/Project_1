@@ -66,18 +66,32 @@ function getApi() {
     .then(function (data) {
       console.log(data);
       return data
-
-      for (var i=0; i <data.length; i++) {
-        var secondaryRequestUrl = 'https://api.nytimes.com/svc/books/v3//reviews.json?${lastIsbn}&${apiKeyNYT}'
-        var closure = document(data[i]);
-      
-        fetch (secondaryRequestUrl)
-        .then(function(review) {
-          return review.json();
-        })
-        .then(closure);
-      }
     });
 
 }
 
+var fetchNYT = document.getElementById('fetch-review')
+const apiKeyNYT = 'ogJultAYcXWwayrU1R1EQvVcAWFG70ON'
+
+function getApi2(event2) {
+  event2.preventDefault();
+
+  var bookTitle = $('#Reveiw-request').val();
+  var requestUrlNYT = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P';
+
+  console.log(requestUrlNYT);
+  console.log(bookTitle);
+
+//   `https://api.nytimes.com/svc/books/v3/reviews.json?${selection}=${searchTerm}&api-key=${apiKeyNYT}`
+
+  fetch(requestUrlNYT)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      return data
+    });
+  
+}
+fetchNYT.addEventListener('click', getApi2);
