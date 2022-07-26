@@ -66,6 +66,17 @@ function getApi() {
     .then(function (data) {
       console.log(data);
       return data
+
+      for (var i=0; i <data.length; i++) {
+        var secondaryRequestUrl = 'https://api.nytimes.com/svc/books/v3//reviews.json?${lastIsbn}&${apiKeyNYT}'
+        var closure = document(data[i]);
+      
+        fetch (secondaryRequestUrl)
+        .then(function(review) {
+          return review.json();
+        })
+        .then(closure);
+      }
     });
 
 }
