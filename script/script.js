@@ -8,13 +8,44 @@ var historyArray = [];
 // save current search to historyArray
 function buttons(event) {
   event.preventDefault();
+
+  // Must be replaced by a Modal in future
   if (searchTerm.val()==="") {
     window.alert('Please enter a valid search');
     return;
   };
+
+  historyArray.push(searchTerm.val());
+  console.log(historyArray);
+
+  // set searchTerm to LocalStorage
+  localStorage.setItem('Book/Author', JSON.stringify(historyArray));
+  historyButtons();
   getApi();
 }
 
+function historyButtons() {
+  search.empty();
+
+  for (let i = 0; i < historyArray.length; i++) {
+    var rowEl = $('<div>');
+    var btnEl = $('<button>').text(`${historyArray[i]}`);
+
+    btnEl.addClass('histBtn');
+
+    btnEl.attr('type','button');
+
+    search.append(rowEl);
+    rowEl.append(btnEl);
+  }
+
+  $('.histBtn').on("click", function (event) {
+    event.preventDefault();
+    search = $(this).text();
+    getApi();
+  })
+
+}
 
 fetchButton.addEventListener('click', buttons);
 
