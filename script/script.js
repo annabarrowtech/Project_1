@@ -64,9 +64,36 @@ function getApi() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
-      return data
-    });
+      // console.log(data);
+      cardsArray = data.docs;
+      console.log(cardsArray);
+      return cardsArray;
+    })
+    .then (function (results) {
+      for (let i = 0; i < cardsArray.length; i++) {
+        var divElCard = $('<div>');
+        var rowElTitle = $('<h5>');
+        rowElTitle.text(results[i].title);
+        divElCard.append(rowElTitle);
+        var rowElAuthor = $('<h5>');
+        rowElAuthor.text('By: ' + results[i].author_name);
+        divElCard.append(rowElAuthor);
+        var rowElGenre = $('<h6>');
+        rowElGenre.text(results[i].subject);
+        divElCard.append(rowElGenre);
+        var rowElDate = $('<h6>');
+        rowElDate.text("Publish Date: " + results[i].first_publish_year);
+        divElCard.append(rowElDate);
+        console.log(results[i].isbn.length)
+        var lastISBN = results[i].isbn[results[i].isbn.length-1]
+        var rowElISBN = $('<a>');
+        rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
+        rowElISBN.text("ISBN: " + lastISBN);
+        divElCard.append(rowElISBN);
+
+        $('#repo-table').append(divElCard);
+      }})
+      
 
 }
 
