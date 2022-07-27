@@ -1,5 +1,6 @@
 var fetchButton = document.getElementById('fetch-button');
 // var apiKeyNYT = 'JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
+var sellersButton = $('#best-list');
 var dropdown = $('#selection');
 var searchTerm = $('#search-input');
 var search = $('.searchHistory');
@@ -47,6 +48,7 @@ function historyButtons() {
 }
 
 fetchButton.addEventListener('click', buttons);
+sellersButton.click(bestSellersList);
 
 function getApi() {
 
@@ -81,3 +83,19 @@ function getApi() {
 
 }
 
+  function bestSellersList() {
+    var requestUrl=  'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
+    
+    fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      for (var i=0; i <data.results.books.length; i++){
+        var book= data.results.books[i]
+        console.log(book);
+      }
+      return data
+    })
+  }
