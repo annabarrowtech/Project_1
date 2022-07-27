@@ -66,24 +66,66 @@ function getApi() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
-      return data
+      // console.log(data);
+      cardsArray = data.docs;
+      console.log(cardsArray);
+      return cardsArray;
+    })
+    .then (function (results) {
+      for (let i = 0; i < cardsArray.length; i++) {
+        var divElCard = $('<div>');
+        var rowElTitle = $('<h5>');
+        rowElTitle.text(results[i].title);
+        divElCard.append(rowElTitle);
+        var rowElAuthor = $('<h5>');
+        rowElAuthor.text('By: ' + results[i].author_name);
+        divElCard.append(rowElAuthor);
+        var rowElGenre = $('<h6>');
+        rowElGenre.text(results[i].subject);
+        divElCard.append(rowElGenre);
+        var rowElDate = $('<h6>');
+        rowElDate.text("Publish Date: " + results[i].first_publish_year);
+        divElCard.append(rowElDate);
+        console.log(results[i].isbn.length)
+        var lastISBN = results[i].isbn[results[i].isbn.length-1]
+        var rowElISBN = $('<a>');
+        rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
+        rowElISBN.text("ISBN: " + lastISBN);
+        divElCard.append(rowElISBN);
 
-      for (var i=0; i <data.length; i++) {
-        var secondaryRequestUrl = 'https://api.nytimes.com/svc/books/v3//reviews.json?${lastIsbn}&${apiKeyNYT}'
-        var closure = document(data[i]);
+        $('#repo-table').append(divElCard);
+      }})
       
-        fetch (secondaryRequestUrl)
-        .then(function(review) {
-          return review.json();
-        })
-        .then(closure);
-      }
-    });
 
 }
 
-  function bestSellersList() {
+var fetchNYT = document.getElementById('fetch-review')
+const apiKeyNYT = 'ogJultAYcXWwayrU1R1EQvVcAWFG70ON'
+
+function getApi2(event2) {
+  event2.preventDefault();
+
+  var bookTitle = $('#Reveiw-request').val();
+  var requestUrlNYT = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P';
+
+  console.log(requestUrlNYT);
+  console.log(bookTitle);
+
+//   `https://api.nytimes.com/svc/books/v3/reviews.json?${selection}=${searchTerm}&api-key=${apiKeyNYT}`
+
+  fetch(requestUrlNYT)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      return data
+    });
+  
+}
+fetchNYT.addEventListener('click', getApi2);
+
+function bestSellersList() {
     var requestUrl=  'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
     
     fetch(requestUrl)
