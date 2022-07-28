@@ -91,7 +91,9 @@ function getApi() {
         console.log(results[i].isbn.length)
         var lastISBN = results[i].isbn[results[i].isbn.length-1]
         var rowElISBN = $('<a>');
-        rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
+        rowElISBN.attr('href', `./search-results.html?isbn=${lastISBN}`);
+        // rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
+        rowElISBN.attr('target', `_blank`);
         rowElISBN.text("ISBN: " + lastISBN);
         divElCard.append(rowElISBN);
         $('#repo-table').append(divElCard);
@@ -112,7 +114,7 @@ function bestSellersList() {
     })
     .then(function (data) {
       console.log(data);
-      for (var i=0; i <data.results.books.length; i++){
+      for (var i=0; i <data.results.books.length; i++) {
         var book= data.results.books[i]
         console.log(book);
         var divEl = $('<div>');
