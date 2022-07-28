@@ -100,6 +100,32 @@ function getApi() {
 
 }
 
+var fetchNYT = document.getElementById('fetch-review')
+const apiKeyNYT = 'ogJultAYcXWwayrU1R1EQvVcAWFG70ON'
+
+function getApi2(event2) {
+  event2.preventDefault();
+
+  var bookTitle = $('#Reveiw-request').val();
+  var requestUrlNYT = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P';
+
+  console.log(requestUrlNYT);
+  console.log(bookTitle);
+
+//   `https://api.nytimes.com/svc/books/v3/reviews.json?${selection}=${searchTerm}&api-key=${apiKeyNYT}`
+
+  fetch(requestUrlNYT)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      return data
+    });
+  
+}
+fetchNYT.addEventListener('click', getApi2);
+
 function bestSellersList() {
     var requestUrl=  'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
     

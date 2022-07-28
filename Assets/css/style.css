@@ -1,0 +1,33 @@
+h1.text-danger {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+form#search-form {
+    text-align: center;
+}
+
+h1.results-header {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+form#search-form {
+    flex-wrap: wrap;
+}
+
+input#search-input {
+    border-radius: 15px;
+    margin: 10px;
+    border-color: gray;
+}
+
+button#fetch-button {background: lightblue;border-color: grey;margin: 10px;}
+
+select#selection {
+    margin: 10px;
+    border-radius: 15px;
+    border-color: gray;
+}
+
+
