@@ -6,13 +6,36 @@ var searchTerm = $('#search-input');
 var search = $('.searchHistory');
 var historyArray = [];
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
 // save current search to historyArray
 function buttons(event) {
   event.preventDefault();
 
   // Must be replaced by a Modal in future
+
+
   if (searchTerm.val()==="") {
-    window.alert('Please enter a valid search');
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     return;
   };
 
@@ -107,7 +130,7 @@ function getApi2(event2) {
   event2.preventDefault();
 
   var bookTitle = $('#Reveiw-request').val();
-  var requestUrlNYT = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P';
+  var requestUrlNYT = `https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`;
 
   console.log(requestUrlNYT);
   console.log(bookTitle);
