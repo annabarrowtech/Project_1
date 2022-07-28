@@ -60,6 +60,8 @@ function getApi() {
   console.log(searchTerm);
   console.log(dropdown);
 
+  var repoTable = $('#repo-table');
+  repoTable.empty();
 
   fetch(requestUrl)
     .then(function (response) {
@@ -92,42 +94,18 @@ function getApi() {
         rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
         rowElISBN.text("ISBN: " + lastISBN);
         divElCard.append(rowElISBN);
-
         $('#repo-table').append(divElCard);
       }})
       
 
 }
 
-var fetchNYT = document.getElementById('fetch-review')
-const apiKeyNYT = 'ogJultAYcXWwayrU1R1EQvVcAWFG70ON'
-
-function getApi2(event2) {
-  event2.preventDefault();
-
-  var bookTitle = $('#Reveiw-request').val();
-  var requestUrlNYT = 'https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P';
-
-  console.log(requestUrlNYT);
-  console.log(bookTitle);
-
-//   `https://api.nytimes.com/svc/books/v3/reviews.json?${selection}=${searchTerm}&api-key=${apiKeyNYT}`
-
-  fetch(requestUrlNYT)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data)
-      return data
-    });
-  
-}
-fetchNYT.addEventListener('click', getApi2);
-
 function bestSellersList() {
     var requestUrl=  'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
     
+    var repoTable = $('#repo-table');
+    repoTable.empty();
+
     fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -137,6 +115,27 @@ function bestSellersList() {
       for (var i=0; i <data.results.books.length; i++){
         var book= data.results.books[i]
         console.log(book);
+        var divEl = $('<div>');
+
+        var rowElAuthor = $('<h5>');
+        rowElAuthor.text('Author :' + book.author);
+        divEl.append(rowElAuthor);
+        
+        var bookimage = $('<img>');
+        bookimage.attr('src', book.book_image);
+        bookimage.attr('style', 'width:100px');
+        divEl.append(bookimage);
+
+        
+        var rowElDesc = $('<p>');
+        rowElDesc.text('Description :' + book.description);
+        divEl.append(rowElDesc);
+        var purchaseURL = $('<a>');
+        purchaseURL.text('See this book on Amazon');
+        purchaseURL.attr ('href', book.amazon_product_url);
+        divEl.append(purchaseURL);
+        
+        repoTable.append(divEl);        
       }
       return data
     })
