@@ -56,7 +56,8 @@ function historyButtons() {
     var btnEl = $('<button>').text(`${historyArray[i]}`);
 
     btnEl.addClass('histBtn');
-
+    btnEl.attr('value','title');
+    btnEl.attr('id', 'search-input');
     btnEl.attr('type','button');
 
     search.append(rowEl);
@@ -111,8 +112,8 @@ function getApi() {
         var rowElDate = $('<h6>');
         rowElDate.text("Publish Date: " + results[i].first_publish_year);
         divElCard.append(rowElDate);
-        console.log(results[i].isbn.length)
-        var lastISBN = results[i].isbn[results[i].isbn.length-1]
+        console.log(results[i].isbn.length);
+        var lastISBN = results[i].isbn[results[i].isbn.length-1];
         var rowElISBN = $('<a>');
         rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
         rowElISBN.text("ISBN: " + lastISBN);
