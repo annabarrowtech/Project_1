@@ -77,7 +77,7 @@ sellersButton.click(bestSellersList);
 function getApi() {
 
   // create variables for constructing requestUrl
-  var requestUrl = `http://openlibrary.org/search.json?${dropdown.val()}=${searchTerm.val()}`;
+  var requestUrl = `https://openlibrary.org/search.json?${dropdown.val()}=${searchTerm.val()}`;
 
   // console logs for troubleshooting
   console.log(requestUrl);
@@ -150,7 +150,7 @@ function getApi2(event2) {
     });
   
 }
-fetchNYT.addEventListener('click', getApi2);
+//fetchNYT.addEventListener('click', getApi2);
 
 function bestSellersList() {
     var requestUrl=  'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
