@@ -29,7 +29,7 @@ var nytURL= 'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fictio
       })
       .then(function (data) {
         console.log(data);
-      });
+     
       for (var i=0; i <data.results.books.length; i++){
         var book= data.results.books[i]
         console.log(book);
@@ -56,7 +56,7 @@ var nytURL= 'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fictio
         repoTable.append(divEl);        
       }
 
-
+    });
 
       
       
