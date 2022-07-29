@@ -68,3 +68,24 @@ select#selection {
   cursor: pointer;
 }
 
+.container {
+    padding: 2px 16px;
+    height: 30%;
+    width: auto;
+}
+.bookCard {
+    display: inline-block;
+    flex-direction: column;
+    border-top: 5px #aaa solid;
+    border-bottom:5px #aaa solid;
+    box-shadow: black 5px;
+}
+
+.header {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 30%;
+    background: #aaa;
+    color: black;
+    text-align: center;
+}
+

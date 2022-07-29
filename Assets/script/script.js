@@ -100,14 +100,16 @@ function getApi() {
     .then (function (results) {
       for (let i = 0; i < cardsArray.length; i++) {
         var divElCard = $('<div>');
+        divElCard.addClass = ('bookCard container');
         var rowElTitle = $('<h5>');
+        rowElTitle.addClass('header');
         rowElTitle.text(results[i].title);
         divElCard.append(rowElTitle);
         var rowElAuthor = $('<h5>');
         rowElAuthor.text('By: ' + results[i].author_name);
         divElCard.append(rowElAuthor);
         var rowElGenre = $('<h6>');
-        rowElGenre.text(results[i].subject);
+        rowElGenre.text('Genre: ' + results[i].subject);
         divElCard.append(rowElGenre);
         var rowElDate = $('<h6>');
         rowElDate.text("Publish Date: " + results[i].first_publish_year);
@@ -144,7 +146,7 @@ function getApi2(event2) {
     })
     .then(function (data) {
       console.log(data)
-      return data
+      return data;
     });
   
 }
@@ -166,6 +168,7 @@ function bestSellersList() {
         var book= data.results.books[i]
         console.log(book);
         var divEl = $('<div>');
+        divEl.addClass('bookCard');
 
         var rowElAuthor = $('<h5>');
         rowElAuthor.text('Author :' + book.author);
@@ -178,7 +181,7 @@ function bestSellersList() {
 
         
         var rowElDesc = $('<p>');
-        rowElDesc.text('Description :' + book.description);
+        rowElDesc.text('Description: ' + book.description);
         divEl.append(rowElDesc);
         var purchaseURL = $('<a>');
         purchaseURL.text('See this book on Amazon');
