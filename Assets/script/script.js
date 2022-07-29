@@ -6,13 +6,36 @@ var searchTerm = $('#search-input');
 var search = $('.searchHistory');
 var historyArray = [];
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
 // save current search to historyArray
 function buttons(event) {
   event.preventDefault();
 
   // Must be replaced by a Modal in future
+
+
   if (searchTerm.val()==="") {
-    window.alert('Please enter a valid search');
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     return;
   };
 
@@ -33,7 +56,8 @@ function historyButtons() {
     var btnEl = $('<button>').text(`${historyArray[i]}`);
 
     btnEl.addClass('histBtn');
-
+    btnEl.attr('value','title');
+    btnEl.attr('id', 'search-input');
     btnEl.attr('type','button');
 
     search.append(rowEl);
@@ -76,20 +100,22 @@ function getApi() {
     .then (function (results) {
       for (let i = 0; i < cardsArray.length; i++) {
         var divElCard = $('<div>');
+        divElCard.addClass = ('bookCard container');
         var rowElTitle = $('<h5>');
+        rowElTitle.addClass('header');
         rowElTitle.text(results[i].title);
         divElCard.append(rowElTitle);
         var rowElAuthor = $('<h5>');
         rowElAuthor.text('By: ' + results[i].author_name);
         divElCard.append(rowElAuthor);
         var rowElGenre = $('<h6>');
-        rowElGenre.text(results[i].subject);
+        rowElGenre.text('Genre: ' + results[i].subject);
         divElCard.append(rowElGenre);
         var rowElDate = $('<h6>');
         rowElDate.text("Publish Date: " + results[i].first_publish_year);
         divElCard.append(rowElDate);
-        console.log(results[i].isbn.length)
-        var lastISBN = results[i].isbn[results[i].isbn.length-1]
+        console.log(results[i].isbn.length);
+        var lastISBN = results[i].isbn[results[i].isbn.length-1];
         var rowElISBN = $('<a>');
         rowElISBN.attr('href', `./search-results.html?isbn=${lastISBN}`);
         // rowElISBN.attr('href', `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?${lastISBN}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`);
@@ -101,6 +127,32 @@ function getApi() {
       
 
 }
+
+var fetchNYT = document.getElementById('fetch-review')
+const apiKeyNYT = 'ogJultAYcXWwayrU1R1EQvVcAWFG70ON'
+
+function getApi2(event2) {
+  event2.preventDefault();
+
+  var bookTitle = $('#Reveiw-request').val();
+  var requestUrlNYT = `https://api.nytimes.com/svc/books/v3/reviews.json?title=${bookTitle}&api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P`;
+
+  console.log(requestUrlNYT);
+  console.log(bookTitle);
+
+//   `https://api.nytimes.com/svc/books/v3/reviews.json?${selection}=${searchTerm}&api-key=${apiKeyNYT}`
+
+  fetch(requestUrlNYT)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      return data;
+    });
+  
+}
+fetchNYT.addEventListener('click', getApi2);
 
 function bestSellersList() {
     var requestUrl=  'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=JAMI5YdsgHznZkGDczFfZ6XO97pqF40P'
@@ -118,6 +170,7 @@ function bestSellersList() {
         var book= data.results.books[i]
         console.log(book);
         var divEl = $('<div>');
+        divEl.addClass('bookCard');
 
         var rowElAuthor = $('<h5>');
         rowElAuthor.text('Author :' + book.author);
@@ -130,7 +183,7 @@ function bestSellersList() {
 
         
         var rowElDesc = $('<p>');
-        rowElDesc.text('Description :' + book.description);
+        rowElDesc.text('Description: ' + book.description);
         divEl.append(rowElDesc);
         var purchaseURL = $('<a>');
         purchaseURL.text('See this book on Amazon');

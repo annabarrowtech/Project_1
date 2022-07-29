@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookFinder Challenge</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./Assets/css/style.css">
 </head>
 <!--This is a test to see if I ,Caidan, can commit-->
 <body>
@@ -14,12 +14,12 @@
           <h1 class="text-danger">Book Search</h1>
           <form id="search-form" class="form w-100">
             <input id="search-input" type="text" placeholder="Search!">
-            <button id="fetch-button">Search</button>
             <select id="selection">
                 <option value="" disabled selected>Select a format...</option>
                 <option value="title">Book Name</option>
                 <option value="author">Author Name</option>
             </select>
+            <button id="fetch-button">Search</button>
         </form>
 
  
@@ -28,21 +28,41 @@
       <div class="searchHistory">
       </div>
     
+    <!--Results Header-->
+    <section>
+      <div>
+        <h1 class="results-header">Results</h1>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Please Enter a Valid Search</p>
+      </div>
+    
+    </div>
+
     <!-- Table Body for Search Results -->
-    <card class="card-body table mx-auto my-4">
+    <section>
+      <card class="card-body table mx-auto my-4">
         <div>
-          <p class="searchResults">Results</p>
+          <p class="searchResults"></p>
         </div>
         
-        <button id="best-list">Hoopla</button>
+        <button id="best-list">NYTimes Best Sellers List</button>
         <div id="repo-table">
 
         </div>
       </card>
+    </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<script src="./script/script.js"></script>
+<script src="./Assets/script/script.js"></script>
 </body>
 </html>
